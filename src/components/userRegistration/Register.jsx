@@ -4,7 +4,7 @@ import { VStack } from "@chakra-ui/layout";
 import { Button, Text, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import axios from "../../axios";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -30,6 +30,11 @@ function Register() {
       const response = await sendData();
       if (response.data.id) {
         toastMessage("Registration Success ", "success");
+        setEmail("");
+        setPassword("");
+        setConPassword("");
+        setUserName("");
+        return <Redirect to="/" />;
       } else {
         toastMessage(response.data, "error");
       }
@@ -84,6 +89,7 @@ function Register() {
         <Input
           placeholder="Email"
           type="email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </FormControl>
@@ -97,6 +103,7 @@ function Register() {
         <FormLabel>User name</FormLabel>
         <Input
           placeholder="User name"
+          value={userName}
           onChange={(e) => setUserName(e.target.value)}
         />
       </FormControl>
@@ -111,6 +118,7 @@ function Register() {
         <Input
           type="password"
           placeholder="Password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </FormControl>
@@ -126,6 +134,7 @@ function Register() {
         <Input
           type="password"
           placeholder="Conform Password"
+          value={conPassword}
           onChange={(e) => setConPassword(e.target.value)}
         />
       </FormControl>

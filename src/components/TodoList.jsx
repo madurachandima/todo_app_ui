@@ -20,7 +20,7 @@ function TodoList(props) {
         }
       )
       .then((response) => {
-        if (response.data.data.tasks.length > 0) {
+        if (response.data.data !== null) {
           setTodos(response.data.data.tasks);
         }
       });
